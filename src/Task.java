@@ -11,4 +11,16 @@ public class Task {
         answer = ans;
         options = vars;
     }
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+    public String getWordToTranslate() {
+        return wordToTranslate;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
 }

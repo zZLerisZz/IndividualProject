@@ -8,10 +8,13 @@ public class Test {
     private final String theme;
     private final int taskCount;
     private final List<IndividualProject.src.Task> taskList;
-    public Test(String thm, int tCount){
+    private int questionCost;
+    public Test(String thm, int tCount, int cost){
         theme = thm;
         taskCount = tCount;
         taskList = new ArrayList<>();
+        questionCost = cost;
+
     }
     public int getTaskCount(){
         return taskCount;
@@ -20,5 +23,17 @@ public class Test {
         String[] wordAnswer = firstLine.split("-");
         List<String> variants = new ArrayList<>(Arrays.asList(secondLine.split(" ")));
         taskList.add(new IndividualProject.src.Task(wordAnswer[0], wordAnswer[1], variants));
+    }
+
+    public int getQuestionCost() {
+        return questionCost;
+    }
+
+    public List<IndividualProject.src.Task> getTaskList() {
+        return taskList;
+    }
+
+    public String getTheme() {
+        return theme;
     }
 }

@@ -18,7 +18,8 @@ public class TestBase {
             fr = new FileReader("TestData\\Test" + i + ".txt");
             sc = new Scanner(fr);
             String[] themeCount = sc.nextLine().split(" ");
-            IndividualProject.src.Test test = new IndividualProject.src.Test(themeCount[0], Integer.parseInt(themeCount[1]));
+            IndividualProject.src.Test test = new IndividualProject.src.Test(themeCount[0], Integer.parseInt(themeCount[1]),
+                    Integer.parseInt(themeCount[2]));
             for (int j = 0; j < test.getTaskCount(); j++){
                 String firstTaskSrgument = sc.nextLine();
                 String secondTaskArgument = sc.nextLine();
@@ -28,5 +29,8 @@ public class TestBase {
             sc.close();
             fr.close();
         }
+    }
+    public List<IndividualProject.src.Test> getTestList() {
+        return testList;
     }
 }
