@@ -1,4 +1,4 @@
-package src.ru.croc.IndividualProject;
+package IndividualProject.src;
 
 public class Application {
     public static void main(String[] args) {
