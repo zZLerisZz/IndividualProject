@@ -3,9 +3,12 @@ package IndividualProject.src;
 import java.io.IOException;
 
 public class Application {
+    private static final String url = "jdbc:h2:/DataBase/TestDataBase/TestBase";
     public static void main(String[] args) throws Exception {
-        IndividualProject.src.TestBase testBase = new IndividualProject.src.TestBase();
-        IndividualProject.src.TestDataBaseWorker tester = new IndividualProject.src.TestDataBaseWorker(testBase,
-                "jdbc:h2:/DataBase/TestDataBase/TestsBase", "sa", "");
+        if(!IndividualProject.src.Checkers.Existance.tableExists(url)) {
+            IndividualProject.src.TestBaseForDB testBase = new IndividualProject.src.TestBaseForDB();
+            IndividualProject.src.TestDataBaseCreator testerDB = new IndividualProject.src.TestDataBaseCreator(testBase,
+                    url, "sa", "");
+        }
     }
 }

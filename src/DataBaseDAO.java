@@ -1,6 +1,7 @@
 package IndividualProject.src;
 
 import java.sql.*;
+import java.util.List;
 
 public class DataBaseDAO {
     public static class TestDataBaseDAO{
@@ -30,6 +31,16 @@ public class DataBaseDAO {
             Statement statement = conn.createStatement();
             statement.execute("INSERT INTO answers (task_id, word, is_correct) VALUES (" +
                     task_id + ", '" + word + "', " + isAnswer + ")");
+        }
+        public static IndividualProject.src.Test selectTest(Connection conn, int id) throws SQLException {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM tests WHERE test_id = " +  id);
+            if(!rs.next())
+                return null;
+
+        }
+        private static List<IndividualProject.src.Task> selectTasks(Connection conn, int test_id){
+
         }
     }
 }

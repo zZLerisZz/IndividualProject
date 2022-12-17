@@ -1,16 +1,15 @@
 package IndividualProject.src;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class TestBase {
+public class TestBaseForDB {
     private final List<IndividualProject.src.Test> testList;
     private int testCount = 3;
-    public TestBase() throws IOException {
+    public TestBaseForDB() throws IOException {
         testList = new ArrayList<>();
         FileReader fr;
         Scanner sc;
