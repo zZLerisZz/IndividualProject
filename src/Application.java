@@ -10,5 +10,7 @@ public class Application {
             IndividualProject.src.TestDataBaseCreator testerDB = new IndividualProject.src.TestDataBaseCreator(testBase,
                     url, "sa", "");
         }
+        IndividualProject.src.TestBaseForApp testBaseForApp = new IndividualProject.src.TestBaseForApp(url, "sa", "");
+        testBaseForApp.printTestBase();
     }
 }

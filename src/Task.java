@@ -23,4 +23,8 @@ public class Task {
     public String getAnswer() {
         return answer;
     }
+    @Override
+    public String toString(){
+        return wordToTranslate + " " + answer + " " + options;
+    }
 }

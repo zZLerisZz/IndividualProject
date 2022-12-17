@@ -1,6 +1,7 @@
 package IndividualProject.src;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseDAO {
@@ -8,7 +9,7 @@ public class DataBaseDAO {
         public static void inSertTest(Connection conn, IndividualProject.src.Test test) throws SQLException {
             Statement statement = conn.createStatement();
             statement.execute("INSERT INTO tests (theme, task_count, task_cost) VALUES ('" +
-                    test.getTheme() + "', " + test.getTaskCount() + ", " + test.getTaskCount() + ")");
+                    test.getTheme() + "', " + test.getTaskCount() + ", " + test.getQuestionCost() + ")");
             ResultSet rs = statement.executeQuery("SELECT * FROM tests WHERE theme = '" + test.getTheme() + "'");
             int testid = 0;
             if(rs.next())
@@ -37,10 +38,38 @@ public class DataBaseDAO {
             ResultSet rs = statement.executeQuery("SELECT * FROM tests WHERE test_id = " +  id);
             if(!rs.next())
                 return null;
-
+            int test_id = rs.getInt("test_id");
+            String theme = rs.getString("theme");
+            int task_count = rs.getInt("task_count");
+            int task_cost = rs.getInt("task_cost");
+            return new IndividualProject.src.Test(theme, task_count, task_cost, selectTasks(conn, test_id));
         }
-        private static List<IndividualProject.src.Task> selectTasks(Connection conn, int test_id){
-
+        private static List<IndividualProject.src.Task> selectTasks(Connection conn, int test_id) throws SQLException {
+            Statement statement = conn.createStatement();
+            List<IndividualProject.src.Task> temp = new ArrayList<>();
+            ResultSet rs = statement.executeQuery("SELECT * FROM tasks WHERE test_id = " +  test_id);
+            while(rs.next()) {
+                int task_id = rs.getInt("task_id");
+                String word = rs.getString("question");
+                temp.add(new IndividualProject.src.Task(word, selectAnswer(conn, task_id), selectWords(conn, task_id)));
+            }
+            return temp;
+        }
+        private static List<String> selectWords(Connection conn, int task_id) throws SQLException {
+            List<String> words = new ArrayList<>();
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM answers WHERE task_id = " +  task_id);
+            while(rs.next()) {
+                words.add(rs.getString("word"));
+            }
+            return words;
+        }
+        private static String selectAnswer(Connection conn, int task_id) throws SQLException {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM answers WHERE task_id = " +  task_id + " AND is_correct = TRUE");
+            if(!rs.next())
+                return null;
+            return rs.getString("word");
         }
     }
 }

@@ -1,8 +1,6 @@
 package IndividualProject.src;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +11,16 @@ public class TestBaseForApp {
     public TestBaseForApp(String url, String user, String pass) throws SQLException {
         conn = DriverManager.getConnection(url, user, pass);
         testList = new ArrayList<>();
+        fillTestList();
     }
     private void fillTestList() throws SQLException {
-        IndividualProject.src.Test tmp;
-        for(int i = 1;;i++){
-            tmp = IndividualProject.src.DataBaseDAO.TestDataBaseDAO.selectTest(conn, i);
-            if(tmp == null)
-                return;
-
-        }
+        Statement statement = conn.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT * FROM tests");
+        while (rs.next())
+            testList.add(IndividualProject.src.DataBaseDAO.TestDataBaseDAO.selectTest(conn, rs.getInt("test_id")));
+    }
+    public void printTestBase(){
+        for(var it:testList)
+            System.out.println(it);
     }
 }

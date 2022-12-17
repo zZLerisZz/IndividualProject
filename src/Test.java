@@ -8,13 +8,18 @@ public class Test {
     private final String theme;
     private final int taskCount;
     private final List<IndividualProject.src.Task> taskList;
-    private int questionCost;
+    private final int questionCost;
     public Test(String thm, int tCount, int cost){
         theme = thm;
         taskCount = tCount;
         taskList = new ArrayList<>();
         questionCost = cost;
-
+    }
+    public Test(String thm, int tCount, int cost, List<IndividualProject.src.Task> tasks){
+        theme = thm;
+        taskCount = tCount;
+        taskList = tasks;
+        questionCost = cost;
     }
     public int getTaskCount(){
         return taskCount;
@@ -35,5 +40,9 @@ public class Test {
 
     public String getTheme() {
         return theme;
+    }
+    @Override
+    public String toString(){
+        return theme + " " + taskCount + " " + questionCost + " " + taskList;
     }
 }
