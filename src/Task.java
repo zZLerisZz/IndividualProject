@@ -1,0 +1,14 @@
+package IndividualProject.src;
+
+import java.util.List;
+
+public class Task {
+    private final String wordToTranslate;
+    private final String answer;
+    private final List<String> options;
+    public Task(String task, String ans, List<String> vars){
+        wordToTranslate = task;
+        answer = ans;
+        options = vars;
+    }
+}
