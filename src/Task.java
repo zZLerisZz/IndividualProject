@@ -25,6 +25,12 @@ public class Task {
     }
     @Override
     public String toString(){
-        return wordToTranslate + " " + answer + " " + options;
+        String str = "Как переводится \"" + wordToTranslate + "\"?\n";
+        for (var it : options)
+            str += " " + it;
+        return str;
+    }
+    public boolean inOptions(String word){
+        return options.contains(word);
     }
 }

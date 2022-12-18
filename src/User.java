@@ -23,4 +23,10 @@ public class User {
     public int getSumOfPoints() {
         return sumOfPoints;
     }
+    public void isConnected(){
+        countOfSessions += 1;
+    }
+    public void addPints(int points){
+        sumOfPoints += points;
+    }
 }

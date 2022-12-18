@@ -23,4 +23,8 @@ public class TestBaseForApp {
         for(var it:testList)
             System.out.println(it);
     }
+
+    public List<IndividualProject.src.Test> getTestList() {
+        return testList;
+    }
 }

@@ -21,7 +21,8 @@ public class DataBaseDAO {
             Statement statement = conn.createStatement();
             statement.execute("INSERT INTO tasks (test_id, question) VALUES (" +
                     test_id + ", '" + task.getWordToTranslate() + "')");
-            ResultSet rs = statement.executeQuery("SELECT * FROM tasks WHERE question = '" + task.getWordToTranslate() + "'");
+            ResultSet rs = statement.executeQuery("SELECT * FROM tasks WHERE test_id = '" + test_id +
+                    "' AND question = '" + task.getWordToTranslate() + "'");
             int taskid = 0;
             if(rs.next())
                 taskid = rs.getInt("task_id");
