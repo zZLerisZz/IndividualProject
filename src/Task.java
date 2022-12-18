@@ -31,6 +31,6 @@ public class Task {
         return str;
     }
     public boolean inOptions(String word){
-        return options.contains(word);
+        return options.contains(word.toLowerCase());
     }
 }
