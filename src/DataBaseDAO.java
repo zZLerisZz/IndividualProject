@@ -72,4 +72,36 @@ public class DataBaseDAO {
             return rs.getString("word");
         }
     }
+    public static class UserDataBaseDAO{
+        public static IndividualProject.src.User userFinder(String userLogin, Connection conn) throws SQLException {
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM users WHERE username = '" + userLogin + "'");
+            if(rs.next())
+                return new IndividualProject.src.User(rs.getString("username"), rs.getInt("points"),
+                        rs.getInt("session_count"));
+            addUser(userLogin, conn);
+            return new IndividualProject.src.User(userLogin, 0, 0);
+        }
+        private static void addUser(String username, Connection conn) throws SQLException {
+            Statement statement = conn.createStatement();
+            statement.execute("INSERT INTO users (username, points, session_count) VALUES ('" + username
+                                    + "', 0, 0)");
+        }
+        public static void updateUser(Connection con, IndividualProject.src.User user) throws SQLException {
+            Statement statement = con.createStatement();
+            statement.execute("update users set points = "+ user.getSumOfPoints()
+                    + ", session_count = " + user.getCountOfSessions() +
+                    " where username = '" + user.getUsername() + "'");
+        }
+        public static int getPlaceOfUser(Connection conn, IndividualProject.src.User user) throws SQLException {
+            int top = 0;
+            double userAvPoints = user.getAveragePoints();
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT * FROM users");
+            while (rs.next())
+                if((double)rs.getInt("points") / rs.getInt("session_count") > userAvPoints)
+                    top += 1;
+            return top + 1;
+        }
+    }
 }
